@@ -1,0 +1,29 @@
+<div class="component">
+	<h2>{{title}}</h2>
+	<hr>
+	<form (ngSubmit)="placeOrder()" [formGroup]="form" *ngIf="!order">
+		<div class="content" *ngIf="!restaurant">
+			<div>
+				<label for="restaurant_name"><h3>1. Enter Restaurant Name:<br></h3></label>
+				<input #restaurant_name id="restaurant_name"
+				 (keyup)="searchRestaurant(restaurant_name.value)" placeholder="Search Restaurant"/>
+			</div>
+			<div *ngFor="let restaurant of restaurants | async"
+				(click)="setRestaurant(restaurant.name)"
+				class="search-result">
+				{{restaurant.name}}
+			</div>
+		</div>
+		<div class="content" *ngIf="restaurant">
+			<app-add-meal-item [restaurant]="restaurant" [form]="form"></app-add-meal-item>
+		</div>
+		<button type="submit" [disabled]="!form.valid">Finalize Order</button>
+	</form>
+	<div *ngIf="order" class="content">
+		<span>Order ID: <i>{{order.id}}</i></span><br>
+		<span>Total Cost: <i>Kshs. {{order.cost}}</i></span><br>	
+		<button (click)="confirmOrder()" [disabled]="order.status!='Finalized'">Confirm Order</button>
+		<a routerLink="/">Home</a>
+	</div>
+</div>
+

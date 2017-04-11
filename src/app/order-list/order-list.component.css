@@ -1,0 +1,36 @@
+.component{
+	border: 2px solid;
+	border-radius: 4px;
+	padding: 5px;
+	height: 400px;
+	overflow-x: scroll;
+}
+.toggler{
+	margin: 10px;
+	padding: 5px;
+	border: 1px solid;
+	border-radius: 2px;
+}
+.selected{
+	background-color: #CFD8DC;
+	color: white;
+}
+.list{
+	max-width: 90%;
+	border: 1px solid;
+	border-radius: 2px;
+	margin: auto;
+	padding: 5px;
+	text-decoration: none;
+}
+li {
+	cursor: pointer;
+	position: relative;
+	left: 0;
+	border: 1px solid;
+	background-color: #EEE;
+	margin: .5em;
+	padding: .3em 0;
+	height: 1.6em;
+	border-radius: 4px;
+}

@@ -1,0 +1,34 @@
+{
+	"data":[
+		{
+			"id": 1900,
+			"name": "Mahindi",
+			"location": "Eldoret Town"
+		},
+		{
+			"id": 1600,
+			"name": "Horizon",
+			"location": "Eldoret Town"
+		},
+		{
+			"id": 1700,
+			"name": "Starbucks",
+			"location": "Eldoret Town"
+		},
+		{
+			"id": 1800,
+			"name": "Comfy",
+			"location": "Eldoret Town"
+		},
+		{
+			"id": 1500,
+			"name": "Sirikwa",
+			"location": "Eldoret Town"
+		},
+		{
+			"id": 1400,
+			"name": "Jadina",
+			"location": "Eldoret Town"
+		}
+	]
+}

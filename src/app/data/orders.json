@@ -1,0 +1,94 @@
+{
+	"data":[
+		{
+			"id": 1491881133820,
+			"status": "Ordered",
+			"date": "05/04/2017",
+			"cost": "2000.00",
+			"foods": [
+				{
+					"id": 2,
+					"price": 440,
+					"name": "Fish Fry",
+					"restaurant":"A",
+					"category": "Stew",
+					"imageUrls": [
+						"image_1.jpg"
+					]
+				} 
+			]
+		},		
+		{
+			"id": 1491881133840,
+			"status": "Finalized",
+			"date": "05/04/2017",
+			"cost": "2000.00",
+			"foods": [
+				{
+					"id": 3,
+					"price": 450,
+					"name": "Beef",
+					"restaurant":"A",
+					"category": "Stew",
+					"imageUrls": [
+						"image_1.jpg"
+					]
+				} 
+			]
+		},		
+		{
+			"id": 1491881133880,
+			"status": "Delivered",
+			"date": "05/04/2017",
+			"cost": "2000.00",
+			"foods": [
+				{
+					"id": 3,
+					"price": 450,
+					"name": "Beef",
+					"restaurant":"A",
+					"category": "Stew",
+					"imageUrls": [
+						"image_1.jpg"
+					]
+				} 
+			]
+		},		
+		{
+			"id": 14918811331600,
+			"status": "Ordered",
+			"date": "05/04/2017",
+			"cost": "2000.00",
+			"foods": [
+				{
+					"id": 3,
+					"price": 450,
+					"name": "Beef",
+					"restaurant":"A",
+					"category": "Stew",
+					"imageUrls": [
+						"image_1.jpg"
+					]
+				} 
+			]
+		},		
+		{
+			"id": 1491881133320,
+			"status": "Delivered",
+			"date": "05/04/2017",
+			"cost": "2000.00",
+			"foods": [
+				{
+					"id": 3,
+					"price": 450,
+					"name": "Beef",
+					"restaurant":"A",
+					"category": "Stew",
+					"imageUrls": [
+						"image_1.jpg"
+					]
+				} 
+			]
+		}
+	]
+}

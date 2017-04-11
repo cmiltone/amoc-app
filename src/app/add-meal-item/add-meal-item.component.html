@@ -1,0 +1,13 @@
+<div class="addItems">
+	<h3>{{title}}</h3>
+	<i>hold Ctrl Button to select multiple items</i>
+	<br>
+	<div [formGroup]="form">
+		<select formControlName="selectedMeals" multiple="true">
+			<option *ngFor="let food of meals" [value]="food">
+				{{food.name}} - Kshs. {{food.price}}
+			</option>
+		</select>
+	</div>
+	<a routerLink="/">Cancel Order</a>
+</div>

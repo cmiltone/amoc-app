@@ -1,0 +1,51 @@
+.component{
+	border: 2px solid;
+	border-radius: 4px;
+	padding: 5px;
+	height: 500px;
+}
+.backbutton{
+	/*float: right;*/
+}
+.content {
+	border:1px solid;
+	padding: 5px;
+	border-radius: 2px;
+	width: 90%;
+	max-width: 400px;
+	margin: auto;
+	float: left;
+}
+.orderform{
+	padding: 2px;
+	margin: auto;
+	width: 90%;
+	border: 1px solid;
+	text-align: center;
+}
+.search-result{
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  width:195px;
+  height: 16px;
+  padding: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+.search-result:hover {
+  color: #eee;
+  background-color: #607D8B;
+}
+#restaurant_name{
+  width: 200px;
+  height: 20px;
+}
+.addItems{
+	border-radius: 2px;
+	border: 1px solid;
+	float: right;
+	margin: auto;
+	width: 60%;
+	padding: 5px;
+}

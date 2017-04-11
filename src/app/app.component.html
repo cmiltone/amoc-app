@@ -1,0 +1,14 @@
+<div class="main_container">
+	<ul class="menu_drawer">
+		<li class="menu_item"><a routerLink="/new_order">New Order</a></li>
+		<li class="menu_item"><a routerLink="/my_orders">My Order(s)</a></li>
+		<li class="menu_item"><a routerLink="/auth">Logout</a></li>
+		<li class="footer">footer content</li>
+	</ul>
+	<div class="main_drawer">
+		<div class="header"><h1>{{title}}</h1></div>
+		<div class="body_container">
+			<router-outlet></router-outlet>
+		</div>		
+	</div>
+</div>

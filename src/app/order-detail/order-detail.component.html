@@ -1,0 +1,11 @@
+<div>
+	<span class="detailitem">Order Number: <i>{{order.id}}</i></span>
+	<span class="detailitem">Order Date: <i>{{order.date}}</i></span>
+	<span class="detailitem">Meals: [<i *ngFor="let food of order.foods">{{food.name}} at Kshs. {{food.price}}</i>]</span>
+	<span class="detailitem">Total cost: <i>{{order.cost}}</i></span>
+	<span class="detailitem">Status: <i>{{order.status}}</i></span>
+	<span class="detailitem">Update order: 
+		<button [disabled]="order.status!=='Finalized'" (click)="updateOrder('ordered')">Confrim Order</button> | 
+		<button [disabled]="order.status!=='Ordered'" (click)="updateOrder('delivered')">Order Delivered</button>
+	</span>
+</div>

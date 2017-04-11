@@ -1,0 +1,25 @@
+<div class="component">
+	<h2>{{title}}</h2>
+	<hr>
+	<div *ngIf="!selectedOrder">
+		<div class="toggler">
+			Toggle order list type:
+			<select [(ngModel)]="listType" (change)="loadOrders(listType)">
+				<option value="Ordered">Active Orders</option>
+				<option value="Delivered">Archived orders</option>
+			</select>
+		</div>
+		<div class="list">
+			<ol>
+				<li *ngFor="let order of orders"
+				 [class.selected]="order===selectedOrder"
+				 (click)="selectOrder(order)">
+					<span>{{order.id}}</span> - <i>{{order.date}}</i>
+				</li>
+			</ol>
+		</div>
+	</div>
+	<div *ngIf="selectedOrder">
+		<order-detail [order]="selectedOrder"></order-detail>
+	</div>		
+</div>

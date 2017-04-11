@@ -1,0 +1,44 @@
+{
+	"data": [
+		{
+			"id": 1,
+			"price": 400,
+			"name": "Nyama Choma",
+			"restaurant":"Jadina",
+			"category": "Stew",
+			"imageUrls": [
+				"image_1.jpg"
+			]
+		},
+		{
+			"id": 2,
+			"price": 440,
+			"name": "Fish Fry",
+			"restaurant":"Mahindi",
+			"category": "Stew",
+			"imageUrls": [
+				"image_1.jpg"
+			]
+		},
+		{
+			"id": 1,
+			"price": 470,
+			"name": "Beef Fry",
+			"restaurant":"A",
+			"category": "Stew",
+			"imageUrls": [
+				"image_1.jpg"
+			]
+		},
+		{
+			"id": 1,
+			"price": 20,
+			"name": "Ugali",
+			"restaurant":"A",
+			"category": "Carb",
+			"imageUrls": [
+				"image_1.jpg"
+			]
+		}
+	]
+}

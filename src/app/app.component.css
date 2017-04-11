@@ -1,0 +1,51 @@
+.main_container{
+	border: 2px solid;
+	border-radius: 5px;
+	padding: 5px;
+	position: fixed !important;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: white;
+}
+.menu_drawer{ 
+	border: 1px solid;
+	margin-right: auto;
+	height: 97%;
+	width: 22%;
+	max-width: 200px; 
+	padding: 2px;
+	float: left;
+	z-index: 5;
+}
+.menu_item{
+	border: 1px solid;
+	padding: 2px;
+	margin: 2px;
+	border-radius: 2px;
+	text-align: center;
+}
+.main_drawer{
+	width: 75%;
+	margin-left: auto;
+	float: right;
+	height: 98%;
+}
+.header{
+	padding: 2px;
+	border: 2px solid;
+	margin: 2px;
+}
+.body_container{
+	padding: 2px;
+}
+.footer{/*
+	position: fixed !important;
+	position: absolute;
+	top: 0;*/
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
