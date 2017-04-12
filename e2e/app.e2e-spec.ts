@@ -7,8 +7,8 @@ describe('amoc-app App', () => {
     page = new AmocAppPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display message saying Ampath Meal Ordering App', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('Ampath Meal Ordering App');
   });
 });
