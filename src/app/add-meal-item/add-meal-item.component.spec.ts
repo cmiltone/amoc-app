@@ -49,4 +49,7 @@ describe('AddMealItemComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should validate meals addition to order', ()=>{
+    expect(component.form.valid).toBeFalsy();
+  })
 });

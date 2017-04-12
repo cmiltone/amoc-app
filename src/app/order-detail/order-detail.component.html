@@ -1,7 +1,7 @@
 <div>
 	<span class="detailitem">Order Number: <i>{{order.id}}</i></span>
 	<span class="detailitem">Order Date: <i>{{order.date}}</i></span>
-	<span class="detailitem">Meals: [<i *ngFor="let food of order.foods">{{food.name}} at Kshs. {{food.price}}</i>]</span>
+	<span class="detailitem">Meals: [<i *ngFor="let food of order.items">{{food.name}} at Kshs. {{food.price}}</i>]</span>
 	<span class="detailitem">Total cost: <i>{{order.cost}}</i></span>
 	<span class="detailitem">Status: <i>{{order.status}}</i></span>
 	<span class="detailitem">Update order: 

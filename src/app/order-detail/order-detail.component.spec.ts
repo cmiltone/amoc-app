@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By }              from '@angular/platform-browser';
 
 import { OrderDetailComponent } from './order-detail.component';
 import { OrdersService }        from '../orders.service';
@@ -28,6 +29,8 @@ describe('OrderDetailComponent Unit Tests', () => {
   };
   let component: OrderDetailComponent;
   let fixture: ComponentFixture<OrderDetailComponent>;
+  let de: any;
+  let el: any;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -43,10 +46,16 @@ describe('OrderDetailComponent Unit Tests', () => {
     fixture = TestBed.createComponent(OrderDetailComponent);
     component = fixture.componentInstance;
     component.order = order;
+    de = fixture.debugElement.query(By.css('.detailitem'));
+    el = de.nativeElement;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should display passed in order`s detail', ()=>{
+    expect(component.order).toBeTruthy();
+    expect(el.textContent).toBeTruthy();
   });
 });

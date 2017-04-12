@@ -5,7 +5,7 @@
 			"status": "Ordered",
 			"date": "05/04/2017",
 			"cost": "2000.00",
-			"foods": [
+			"items": [
 				{
 					"id": 2,
 					"price": 440,
@@ -23,7 +23,7 @@
 			"status": "Finalized",
 			"date": "05/04/2017",
 			"cost": "2000.00",
-			"foods": [
+			"items": [
 				{
 					"id": 3,
 					"price": 450,
@@ -41,7 +41,7 @@
 			"status": "Delivered",
 			"date": "05/04/2017",
 			"cost": "2000.00",
-			"foods": [
+			"items": [
 				{
 					"id": 3,
 					"price": 450,
@@ -59,7 +59,7 @@
 			"status": "Ordered",
 			"date": "05/04/2017",
 			"cost": "2000.00",
-			"foods": [
+			"items": [
 				{
 					"id": 3,
 					"price": 450,
@@ -77,7 +77,7 @@
 			"status": "Delivered",
 			"date": "05/04/2017",
 			"cost": "2000.00",
-			"foods": [
+			"items": [
 				{
 					"id": 3,
 					"price": 450,

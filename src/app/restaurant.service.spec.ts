@@ -14,7 +14,7 @@ describe('RestaurantService', () => {
     });
   });
 
-  it('should ...', inject([RestaurantService], (service: RestaurantService) => {
+  it('should provide restaurant data', inject([RestaurantService], (service: RestaurantService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -18,7 +18,7 @@ export class OrderListComponent implements OnInit {
 	orders: Order[];
 	selectedOrder: Order;
 	constructor(
-		private os: OrdersService
+		private ordersService: OrdersService
 	){}
 
 	ngOnInit(){
@@ -29,7 +29,7 @@ export class OrderListComponent implements OnInit {
 	loadOrders(type: string){
 		this.title = `Showing `+type+` Orders`;
 		console.log(type);
-		this.os.getOrders(type)
+		this.ordersService.getOrders()
 				.subscribe(res=> {
 					this.orders = res.filter(function(order: Order){
 						console.log(order.status+" vs "+type);

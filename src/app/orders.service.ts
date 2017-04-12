@@ -10,7 +10,7 @@ export class OrdersService {
 	constructor(
 		private http: Http
 	){}
-	getOrders(type:string):Observable<Order[]>{
+	getOrders():Observable<Order[]>{
 		return this.http
 					.get(this.ordersUrl)
 					.map(res => res.json().data as Order[])/**/

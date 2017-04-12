@@ -13,7 +13,7 @@ describe('OrdersService', () => {
     });
   });
 
-  it('should ...', inject([OrdersService], (service: OrdersService) => {
+  it('should provide orders data', inject([OrdersService], (service: OrdersService) => {
     expect(service).toBeTruthy();
   }));
 });

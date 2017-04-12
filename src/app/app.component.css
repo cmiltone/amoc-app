@@ -8,7 +8,8 @@
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background-color: white;
+	background-image: url('photography.png');
+	color: #191970;
 }
 .menu_drawer{ 
 	border: 1px solid;
