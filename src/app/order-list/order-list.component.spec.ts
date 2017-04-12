@@ -1,4 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule }             from '@angular/forms';
+import { HttpModule, Http }                    from '@angular/http';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA }  from '@angular/core';
 
 import { OrderListComponent } from './order-list.component';
 
@@ -8,7 +11,15 @@ describe('OrderListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrderListComponent ]
+      imports: [
+        HttpModule,
+        FormsModule
+      ],
+      declarations: [ OrderListComponent ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,
+        NO_ERRORS_SCHEMA
+      ]
     })
     .compileComponents();
   }));

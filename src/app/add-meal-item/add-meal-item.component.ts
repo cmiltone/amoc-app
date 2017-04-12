@@ -1,7 +1,5 @@
 import { Component, OnInit, Input }				from '@angular/core';
-import { Router }								from '@angular/router';
-import { FormGroup, FormControl, Validators }	from '@angular/forms';
-import { Location }								from "@angular/common";
+import { FormGroup, FormControl }	from '@angular/forms';
 
 import { Order }								from '../order';
 import { Meal }									from '../meal';
@@ -21,20 +19,18 @@ import { MealItemService }						from '../meal-item.service';
 })
 export class AddMealItemComponent implements OnInit {
 
-	private title: string;
+	title: string;
 	@Input() restaurant: string;
 	@Input() form: FormGroup;
 
-	private meals: Meal[];
+	meals: Meal[];
 	constructor(
-		private location: Location,
-		private mis: MealItemService,
-		private router: Router
+		private mealItemsService: MealItemService
 	){}
 	ngOnInit(){
 		console.log(this.form);
 		this.title = "2. Add Meal Items";
-		this.mis.getMeals(this.restaurant)
+		this.mealItemsService.getMeals(this.restaurant)
 				.subscribe(res=> {
 					const rest = this.restaurant;					 
 					this.meals = res.filter(function(meal: Meal){

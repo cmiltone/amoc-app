@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OrdersService }							from '../orders.service';
-import { Location }								from '@angular/common';
+import { OrdersService }						from '../orders.service';
 import { Order }								from '../order';
 
 @Component({
@@ -13,13 +12,8 @@ import { Order }								from '../order';
 export class OrderDetailComponent {
 	
 	@Input()order: Order;
-	constructor(
-		private location: Location
-	){}
-
-	ngOnInit(){
-		console.log(this.order);
-	}
+	constructor(){}
+	
 	updateOrder(status: string){
 		//update order status e.g delivered, cancelled, finalized etc
 		console.log(status);

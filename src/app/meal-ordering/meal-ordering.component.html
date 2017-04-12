@@ -16,9 +16,11 @@
 		</div>
 		<div class="content" *ngIf="restaurant">
 			<app-add-meal-item [restaurant]="restaurant" [form]="form"></app-add-meal-item>
+			<button type="submit" [disabled]="!form.valid">Finalize Order</button>
+			<a routerLink="/">Cancel</a>
 		</div>
-		<button type="submit" [disabled]="!form.valid">Finalize Order</button>
 	</form>
+
 	<div *ngIf="order" class="content">
 		<span>Order ID: <i>{{order.id}}</i></span><br>
 		<span>Total Cost: <i>Kshs. {{order.cost}}</i></span><br>	

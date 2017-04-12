@@ -1,21 +1,51 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, fakeAsync, tick }  from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA }  from '@angular/core';
 import { RouterTestingModule }              from '@angular/router/testing';
-
+import { Router, Routes }                   from '@angular/router';
+import { Location }                         from '@angular/common';
 
 import { AppComponent } from './app.component';
 
+//components
+import { MealOrderingComponent } from './meal-ordering/meal-ordering.component';
+import { OrderListComponent }    from './order-list/order-list.component';
+
+//routes
+
+const routes: Routes = [
+  {path: '', redirectTo: '/', pathMatch: 'full'},
+  {path: 'new_order', component: MealOrderingComponent},
+  {path: 'my_orders', component: OrderListComponent}
+];
+
+
 describe('AppComponent', () => {
+  let location: Location;
+  let router:  Router;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
       ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,
+        NO_ERRORS_SCHEMA
+      ],
       declarations: [
-        AppComponent
+        AppComponent,
+        MealOrderingComponent,
+        OrderListComponent
       ],
     }).compileComponents();
   }));
-
+  router = TestBed.get(Router);
+  location = TestBed.get(Location);
+  router.initialNavigation();
+  it('navigate to "" redirects to /', fakeAsync(()=>{
+    router.navigate(['']);
+    tick();
+    expect(location.path()).toBe('/');
+  }));
   it('should create the app', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;

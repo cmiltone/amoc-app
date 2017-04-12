@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Router }								from '@angular/router';
-import { Location }								from '@angular/common';
 import { FormGroup, FormControl, Validators }	from '@angular/forms';
 
 import { Restaurant }							from '../restaurant';
@@ -31,18 +29,16 @@ import 'rxjs/add/operator/switchMap';
 })
 
 export class MealOrderingComponent implements OnInit{
-	private title: string;
-	private form: FormGroup;
-	private order: Order;
-	private payLoad: any;
+	title: string;
+	form: FormGroup;
+	order: Order;
+	payLoad: any;
 
-	private restaurant: string;
-	private restaurants: Observable<Restaurant[]>;
-	private searchTerms = new Subject<string>();
+	restaurant: string;
+	restaurants: Observable<Restaurant[]>;
+	searchTerms = new Subject<string>();
 	constructor(
-		private location: Location,
-		private rs: RestaurantService,
-		private router: Router
+		private rs: RestaurantService
 	){}
 	ngOnInit(){
 		this.form = new FormGroup({
