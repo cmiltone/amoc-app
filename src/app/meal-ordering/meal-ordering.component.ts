@@ -69,7 +69,7 @@ export class MealOrderingComponent implements OnInit{
 			id: timestamp,
 			date: new Date(timestamp).toString(),
 			status: "Finalized",
-			cost: this.form.value.selectedMeals.price,
+			cost: this.form.value.selectedMeals[0].price,
 			items: this.form.value.selectedMeals
 		};
 		this.title = "Order Made Successfully";
