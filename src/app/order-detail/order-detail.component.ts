@@ -15,8 +15,7 @@ export class OrderDetailComponent {
 	constructor(){}
 	
 	updateOrder(status: string){
-		//update order status e.g delivered, cancelled, finalized etc
-		console.log(status);
+		//update order status e.g delivered, cancelled, finalized et
 		this.order.status = status;
 		//TODO: backend to save update on database
 	}

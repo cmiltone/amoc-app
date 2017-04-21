@@ -42,11 +42,12 @@ describe('AppComponent', () => {
     router.initialNavigation();
   }));
   
-  it('navigate to "" redirects to /', fakeAsync(()=>{
+ it('navigate to "" redirects to /', fakeAsync(()=>{
     router.navigate(['']);
     tick();
     expect(location.path()).toBe('/');
-  }));
+  }));/* */
+
   it('should create the app', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;

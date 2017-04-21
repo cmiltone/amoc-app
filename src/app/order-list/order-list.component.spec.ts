@@ -6,6 +6,7 @@ import { HttpModule, Http }                    from '@angular/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA }  from '@angular/core';
 
 import { Order }              from '../order';
+import { MockOrders }         from '../mocks';
 import { OrderListComponent } from './order-list.component';
 
 import { Observable }              from 'rxjs/Observable';
@@ -17,26 +18,7 @@ describe('OrderListComponent', () => {
   let component: OrderListComponent;
   let fixture: ComponentFixture<OrderListComponent>;
   let ordersService: OrdersService;
-  let testOrders: Order[] = [
-    {
-      id: 112134234,
-      status: 'Ordered',
-      date: '11-04-2017',
-      cost: 2000,
-      items: [
-        {
-          id: 213,
-          name: "Nyama Choma",
-          price: 200,
-          category: "Stew ",
-          restaurant: "Comfy",
-          imageUrls: [
-            "image1.jpg"
-          ],
-        }
-      ],
-    }
-  ];
+  let testOrders: Order[] = MockOrders;
 
   let de: any;
   let el: any;

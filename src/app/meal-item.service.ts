@@ -14,11 +14,6 @@ export class MealItemService {
 		private http: Http
 	) { }
 
-	getMealItems():Observable<Meal[]>{
-		return this.http
-					.get(this.mealsUrl)
-					.map(res => res.json().data as Meal[])/**/
-	}
 	getMeals(restaurant: any):Observable<Meal[]>{
 		return this.http
 					.get(this.mealsUrl)

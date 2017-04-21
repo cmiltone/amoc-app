@@ -5,28 +5,11 @@ import { OrderDetailComponent } from './order-detail.component';
 import { OrdersService }        from '../orders.service';
 import { Order }                from '../order';
 import { Meal }                 from '../meal';
+import { MockOrders }           from '../mocks';
 
 
-describe('OrderDetailComponent Unit Tests', () => {
-  let order: Order;
-  order = {
-    id: 1312124124,
-    date: "12-04-2017",
-    status: "Delivered",
-    cost: 1000,
-    items: [
-      {
-        id: 121212,
-        name: "Fish Fry",
-        price: 5000,
-        category: "Stew",
-        restaurant: "Jadina",
-        imageUrls: [
-          "image1.jpg"
-        ],
-      }
-    ]
-  };
+fdescribe('OrderDetailComponent Unit Tests', () => {
+  let order: Order  = MockOrders[1];
   let component: OrderDetailComponent;
   let fixture: ComponentFixture<OrderDetailComponent>;
   let de: any;
@@ -35,9 +18,7 @@ describe('OrderDetailComponent Unit Tests', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ OrderDetailComponent ],
-      providers: [
-
-      ]
+      providers: []
     })
     .compileComponents();
   }));
@@ -58,4 +39,9 @@ describe('OrderDetailComponent Unit Tests', () => {
     expect(component.order).toBeTruthy();
     expect(el.textContent).toBeTruthy();
   });
+  it('#updateOrder should update order status to `Delivered` when confirm button is clicked', ()=>{
+    component.updateOrder('Delivered');
+    fixture.detectChanges();
+    expect(component.order.status).toBe('Delivered');
+  })
 });

@@ -28,7 +28,6 @@ export class AddMealItemComponent implements OnInit {
 		private mealItemsService: MealItemService
 	){}
 	ngOnInit(){
-		console.log(this.form);
 		this.title = "2. Add Meal Items";
 		this.mealItemsService.getMeals(this.restaurant)
 				.subscribe(res=> {
@@ -36,7 +35,7 @@ export class AddMealItemComponent implements OnInit {
 					this.meals = res.filter(function(meal: Meal){
 						return meal.restaurant == rest;
 					});
+					console.log(this.meals);
 				});
 		}
-
 }
