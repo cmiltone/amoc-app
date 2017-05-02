@@ -14,6 +14,7 @@ export class OrdersService {
 		private http: Http
 	){}
 	getOrders(listType: string):Observable<Order[]>{
+		console.log('getOrders');
 		return this.http
 					.get(this.ordersUrl)
 					.map((res) =>{

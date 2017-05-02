@@ -1,7 +1,7 @@
 <div class="component">
 	<h2>{{title}}</h2>
 	<hr>
-	<form (ngSubmit)="placeOrder()" [formGroup]="form" *ngIf="!order">
+	<form (ngSubmit)="placeOrder(form.value)" [formGroup]="form" *ngIf="!order">
 		<div class="content" *ngIf="!restaurant">
 			<div>
 				<label for="restaurant_name"><h3>1. Enter Restaurant Name:<br></h3></label>

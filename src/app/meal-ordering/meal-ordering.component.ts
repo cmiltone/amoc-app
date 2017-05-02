@@ -62,19 +62,18 @@ export class MealOrderingComponent implements OnInit{
 	setRestaurant(restaurant: string){
 		this.restaurant = restaurant;
 	}
-	placeOrder(): void{
+	placeOrder(order: any): void{
 		const timestamp = Date.now();
 		this.order = {
 			id: timestamp,
 			date: new Date(timestamp).toString(),
 			status: "Finalized",
-			cost: this.form.value.selectedMeals[0].price,
-			items: this.form.value.selectedMeals
+			cost: order.selectedMeals.price,
+			items: order.selectedMeals
 		};
 		this.title = "Order Made Successfully";
 	}
 	confirmOrder(){
-		console.log("confirm");
 		this.order.status = "Ordered";
 		this.title = "Order Confirmed and sent Successfully. Please Note the order number";
 		this.payLoad = JSON.stringify(this.order);

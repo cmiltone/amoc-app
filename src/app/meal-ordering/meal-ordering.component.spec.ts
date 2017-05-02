@@ -9,12 +9,13 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/of';
 import { RestaurantService } from '../restaurant.service';
 import { Restaurant }        from '../restaurant';
+import { Order }             from '../order';
 import { MockRestaurants }    from '../mocks';
 import { MockMeals }        from '../mocks';
 
 fdescribe('MealOrderingComponent:', () => {
   let restaurant_name: string = "Jadina";
-  let testOrderForm_value = MockMeals[0];
+  let test_meal = MockMeals[0];
   let component: MealOrderingComponent;
   let rs: RestaurantService;
   let fixture: ComponentFixture<MealOrderingComponent>;
@@ -22,7 +23,14 @@ fdescribe('MealOrderingComponent:', () => {
   let expectedForm = new FormGroup({
       selectedMeals: formControl
   });
-
+  const timestamp = Date.now();
+  let testOrder: Order = {
+    id: timestamp,
+    date: new Date(timestamp).toString(),
+    status: "Finalized",
+    cost: test_meal.price,
+    items: MockMeals
+  };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -50,27 +58,25 @@ fdescribe('MealOrderingComponent:', () => {
       selectedMeals: formControl
     });
     component.form = form;
-    const selectedFoods = testOrderForm_value;
+    const selectedFoods = test_meal;
 
-    formControl = new FormControl(selectedFoods);
-    component.form = new FormGroup({selectedMeals: formControl})
+    let searchRestaurant_spy = spyOn(component, 'searchRestaurant').and.callFake((term)=>{
+      console.log("the string: "+term)
+      component.searchTerms.next(term);
+    });
+
+    let search_restaurant_spy = spyOn(rs, 'search_restaurant').and.callFake((restaurant_name)=>{
+      console.log("search")
+      return Observable.of(MockRestaurants.filter(filterRestaurants));
+    });
+
     fixture.detectChanges();
   });
   function filterRestaurants(restaurant: Restaurant){
     return restaurant.name = restaurant_name;
   }
-  beforeEach(async(()=>{
-    const searchRestaurant_spy = spyOn(component, 'searchRestaurant').and.callFake((term)=>{
-      console.log("the string: "+term)
-      component.searchTerms.next(term);
-    })
-
-    const search_restaurant_spy = spyOn(rs, 'search_restaurant').and.callFake((restaurant_name)=>{
-      console.log("search")
-      return Observable.of(MockRestaurants.filter(filterRestaurants));
-    })
-    fixture.detectChanges();
-  }))
+  /*beforeEach(async(()=>{    fixture.detectChanges();
+  }))*/
   it('should create `MealOrderingComponent` component', () => {
     expect(component).toBeTruthy();
   });
@@ -83,51 +89,46 @@ fdescribe('MealOrderingComponent:', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h2').textContent).toContain('Meal Ordering');
   })
-  fdescribe('searchRestaurant', ()=>{
-    it("should return Subject stream of `searchTerms`", ()=>{
+  describe('searchRestaurant', ()=>{
+    it("should return Subject stream of `searchTerms` when user types", async(()=>{
+      component.ngOnInit();
       //Arrange, act assert
-      //let t = document.getElementById("restaurant_name");
-      component.searchRestaurant('Ja');
-      //tick();
-      /*expect(component.searchRestaurant.c)*/
-      //component.searchTerms.next('aas');
+      component.searchRestaurant('Jadina');
       component.searchTerms.subscribe(term=>{
-        console.log('Inside sub:');
         console.log(term);
-        expect(term).toBeFalsy();
-      })
+        expect(term).toBeTruthy();
+      })/**/
       component.restaurants
         .subscribe(name=> {console.log(name)});
-    })
+    }))
   })    
-  it('should call method `searchRestaurant` each time user types a search term', ()=>{
-
-  })
-  it('should have property `restaurants` an Observable of restaurants whose names begin with the typed search terms', ()=>{
-
-  })
-  it('should list names of restaurants in the `restaurants` Observable', ()=>{
-
-  })
-  it('should have method `setRestaurant` to select restaurant', ()=>{
-
-  })
-  it('should have property `form` as FormGroup to submit and validate meal item(s)', ()=>{
+  it('should have property `form` as FormGroup invalid when empty', ()=>{
     expect(component.form.valid).toBeFalsy();
   })
-  it('should show `add-meal-item` element when `restaurant` is set', ()=>{
-
-  })
   describe('placeOrder', ()=>{
-    it('should create `order` with sumitted order form values',()=>{
-      //component.form.value.selectedMeals = selectedFoods;
-      expect(component.form.valid).toBeTruthy();
-      //component.form.value = testOrderForm_value;
-      component.placeOrder()
+    it('should set `order` details with sumitted order form values',()=>{
+      let selected_meals = component.form.controls.selectedMeals;
+      selected_meals.setValue(test_meal);
+      let v = component.form.value;
+      component.placeOrder(v);
+      expect(component.order).toBeTruthy();
     })
   })
-  
-  it('should have method `confirmOrder` to set the `order` status to `Delivered`', ()=>{
-
+  describe('confirmOrder', ()=>{
+    it('should change order status to `Ordered`', ()=>{
+      component.order = testOrder;
+      component.confirmOrder();
+      expect(component.order.status).toEqual('Ordered');
+    })
+    it('should change title to `Order Confirmed and sent Successfully. Please Note the order number`', ()=>{
+      component.order = testOrder;
+      component.confirmOrder();
+      expect(component.title).toEqual('Order Confirmed and sent Successfully. Please Note the order number');
+    })
+    it('should set payLoad', ()=>{
+      component.order = testOrder;
+      component.confirmOrder();
+      expect(component.payLoad).toEqual(JSON.stringify(component.order));
+    })
   })
 });

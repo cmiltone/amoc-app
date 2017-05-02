@@ -14,7 +14,7 @@ import 'rxjs/add/observable/of';
 
 import { OrdersService } from '../orders.service';
 
-fdescribe('OrderListComponent:', () => {
+describe('OrderListComponent:', () => {
   let component: OrderListComponent;
   let fixture: ComponentFixture<OrderListComponent>;
   let ordersService: OrdersService;
@@ -46,12 +46,12 @@ fdescribe('OrderListComponent:', () => {
     component.listType = 'Ordered';
     de = fixture.debugElement.query(By.css('.listitem'));
     //el = de.nativeElement;
-    fixture.detectChanges();
-  });
-  beforeEach(async(()=>{
+
+    function filterOrders(order: Order){
+      return order.status == component.listType;
+    }
     const getOrders_spy = spyOn(ordersService, 'getOrders').and.callFake((type)=>{
-      console.log("get orders spy");
-      return Observable.of(testOrders);
+      return Observable.of(testOrders.filter(filterOrders));
     });
     const loadOrders_spy = spyOn(component, 'loadOrders').and.callFake((type)=>{
       component.title = `Showing `+component.listType+` Orders`;
@@ -62,7 +62,10 @@ fdescribe('OrderListComponent:', () => {
       component.loadOrders(component.listType);
     })
     fixture.detectChanges();
-  }))
+  });
+  /*beforeEach(async(()=>{
+    fixture.detectChanges();
+  }))*/
   it('should create `OrdersListComponent`', () => {
     expect(component).toBeTruthy();
     fixture.detectChanges();
@@ -71,8 +74,11 @@ fdescribe('OrderListComponent:', () => {
     component.ngOnInit();
     expect(component.orders).toBeTruthy();
   }));
-  it('It shoud fetch order`s data', ()=>{
-    
+  it('It shoud render order`s list', ()=>{    
     fixture.detectChanges();
+    let order = component.orders[0];
+    const compiled = fixture.debugElement.nativeElement;
+    let el = compiled.querySelector('span');
+    expect(el.textContent).toContain(order.id);
   });
 });

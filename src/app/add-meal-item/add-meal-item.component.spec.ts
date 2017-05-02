@@ -51,13 +51,8 @@ describe('AddMealItemComponent', () => {
     component.form = expectedForm;
     mealItemService = fixture.debugElement.injector.get(MealItemService);
 
-  });
-  function filterMeals(meal: Meal){
-    return meal.restaurant == expectedRestaurant;
-  }
-  beforeEach(async(()=>{
-
     const getMeals_spy = spyOn(mealItemService, 'getMeals').and.callFake((expectedRestaurant)=>{
+      console.log('fake');
       return Observable.of(testMeals.filter(filterMeals));
     })
 
@@ -65,9 +60,14 @@ describe('AddMealItemComponent', () => {
       mealItemService.getMeals(expectedRestaurant)
           .subscribe(meals=>component.meals = meals);
     })
-
     fixture.detectChanges();
-  }))
+  });
+  function filterMeals(meal: Meal){
+    return meal.restaurant == expectedRestaurant;
+  }
+  /*beforeEach(async(()=>{
+    fixture.detectChanges();
+  }))*/
 
   it('should create `AddMealItemComponent` component', () => {
     expect(component).toBeTruthy();
@@ -93,17 +93,16 @@ describe('AddMealItemComponent', () => {
     const el = de.querySelector('option');
     expect(el.textContent).toContain(meals[0].name+" - Kshs. "+meals[0].price);
   })
+  it('should have a `FormGroup` that is invalid when empty',()=>{
+    expect(component.form.valid).toBeFalsy();    
+  })
   it('should have a `FormGroup` that becomes valid when the user selects meal item(s)', fakeAsync(()=>{
     expect(component.form instanceof FormGroup).toBe(true);
     expect(component.form.valid).toBeFalsy();
     const selectedFoods = testMeals[0];
-    const de = fixture.debugElement.nativeElement;
-    const el = de.querySelector('select');
-    
-    formControl = new FormControl(selectedFoods);
-    component.form = new FormGroup({selectedMeals: formControl})
     fixture.detectChanges();
-    //component.form.value.selectedMeals = selectedFoods;
+    let selected_meals = component.form.controls.selectedMeals;
+    selected_meals.setValue(selectedFoods);
     expect(component.form.valid).toBeTruthy();
   }));
 });
