@@ -22,20 +22,16 @@ export class OrderListComponent implements OnInit {
 	){}
 
 	ngOnInit(){
+
 		this.listType = "Ordered";
 		this.title = `Showing `+this.listType+` Orders`;
 		this.loadOrders(this.listType);
 	}
 	loadOrders(type: string){
+		console.log("load orders");
 		this.title = `Showing `+type+` Orders`;
-		console.log(type);
-		this.ordersService.getOrders()
-				.subscribe(res=> {
-					this.orders = res.filter(function(order: Order){
-						console.log(order.status+" vs "+type);
-						return order.status == type;
-					})
-				});
+		this.ordersService.getOrders(type)
+				.subscribe(res=> this.orders = res);/**/
 	}
 	selectOrder(order: Order): void{
 		this.title = 'Showing selected order details';

@@ -17,6 +17,12 @@ export class MealItemService {
 	getMeals(restaurant: any):Observable<Meal[]>{
 		return this.http
 					.get(this.mealsUrl)
-					.map((response) => response.json().data as Meal[]);
+					.map((response) => response.json().filter(function(meal: Meal){
+						return meal.restaurant == restaurant;
+					}) as Meal[])
+					.catch(error=>{
+						console.error("Error occurerred!", error);
+						return Observable.of<Meal[]>([]);
+					});
 	}
 }

@@ -8,7 +8,7 @@ import { Meal }                 from '../meal';
 import { MockOrders }           from '../mocks';
 
 
-fdescribe('OrderDetailComponent Unit Tests', () => {
+describe('OrderDetailComponent:', () => {
   let order: Order  = MockOrders[1];
   let component: OrderDetailComponent;
   let fixture: ComponentFixture<OrderDetailComponent>;

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By }              from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormGroup, FormControl, Validators }  from '@angular/forms';
@@ -50,37 +50,60 @@ describe('AddMealItemComponent', () => {
     component = fixture.componentInstance;
     component.form = expectedForm;
     mealItemService = fixture.debugElement.injector.get(MealItemService);
-    fixture.detectChanges();
-  });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-    component.ngOnInit();
-    fixture.detectChanges();
   });
-  it('should have an input `FormGroup`', ()=>{
-    expect(component.form instanceof FormGroup).toBe(true);
+  function filterMeals(meal: Meal){
+    return meal.restaurant == expectedRestaurant;
+  }
+  beforeEach(async(()=>{
+
+    const getMeals_spy = spyOn(mealItemService, 'getMeals').and.callFake((expectedRestaurant)=>{
+      return Observable.of(testMeals.filter(filterMeals));
+    })
+
+    const ngOnInit_spy = spyOn(component, 'ngOnInit').and.callFake(()=>{
+      mealItemService.getMeals(expectedRestaurant)
+          .subscribe(meals=>component.meals = meals);
+    })
+
+    fixture.detectChanges();
+  }))
+
+  it('should create `AddMealItemComponent` component', () => {
+    expect(component).toBeTruthy();
+    fixture.detectChanges();
   });
   it('should set and render component title as `2. Add Meal Items` in h3 tag', ()=>{
     expect(component.title).toEqual('2. Add Meal Items');
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h3').textContent).toContain('2. Add Meal Items');
   })
-  it('should resolve meal items', fakeAsync(()=>{
+  it('should fetch meal items from a given reastaurant', fakeAsync(()=>{
+    //set restaurant
     component.restaurant = expectedRestaurant;
+
+    component.ngOnInit();
     fixture.detectChanges();
-    const spy = spyOn(mealItemService, 'getMeals').and.returnValue(
-      Observable.of(testMeals)
-    );
-    component.meals = testMeals;
-    fixture.detectChanges();
-    expect(component.meals).toEqual(testMeals);
-    fixture.whenStable().then(()=>{
-      fixture.detectChanges();
-      expect(spy.calls.any()).toEqual(true);
-    });    
-  }))
-  it('should validate meals addition to order', ()=>{
-    expect(component.form.valid).toBeFalsy();
+    expect(component.meals.length >0).toBe(true);
+      
+  }))/**/  
+  it('should render meal options (by showing names and prices of meal) to be selected', ()=>{
+    const meals = testMeals.filter(filterMeals);
+    const de  = fixture.debugElement.nativeElement;
+    const el = de.querySelector('option');
+    expect(el.textContent).toContain(meals[0].name+" - Kshs. "+meals[0].price);
   })
+  it('should have a `FormGroup` that becomes valid when the user selects meal item(s)', fakeAsync(()=>{
+    expect(component.form instanceof FormGroup).toBe(true);
+    expect(component.form.valid).toBeFalsy();
+    const selectedFoods = testMeals[0];
+    const de = fixture.debugElement.nativeElement;
+    const el = de.querySelector('select');
+    
+    formControl = new FormControl(selectedFoods);
+    component.form = new FormGroup({selectedMeals: formControl})
+    fixture.detectChanges();
+    //component.form.value.selectedMeals = selectedFoods;
+    expect(component.form.valid).toBeTruthy();
+  }));
 });

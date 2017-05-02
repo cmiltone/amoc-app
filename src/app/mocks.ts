@@ -1,7 +1,7 @@
 import { Meal } from './meal';
 import { Order } from './order';
 import { Restaurant } from './restaurant';
-export const MockMeals: Meal[] = [
+export const MockMeals: Array<Meal> = [
     {
       id: 12345,
       name: "Nyama Choma",
@@ -15,7 +15,7 @@ export const MockMeals: Meal[] = [
       name: "Fish Fry",
       price: 440,
       category: "Stew",
-      restaurant: "Jadina",
+      restaurant: "Jacaranda",
       imageUrls: []
     },
     {
@@ -23,12 +23,12 @@ export const MockMeals: Meal[] = [
       name: "Fried Chicken",
       price: 440,
       category: "Stew",
-      restaurant: "Jadina",
+      restaurant: "Mahindi",
       imageUrls: []
     }
 ];
 
-export const MockOrders: Order[] = [
+export const MockOrders: Array<Order> = [
 	{
 		id: 12345,
 		status: "Delivered",
@@ -63,7 +63,7 @@ export const MockOrders: Order[] = [
 	}
 ];
 
-export const MockRestaurants: Restaurant[] = [
+export const MockRestaurants: Array<Restaurant> = [
 	{
 		id: 1234,
 		name: "Jadina",

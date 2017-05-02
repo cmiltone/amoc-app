@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By }              from '@angular/platform-browser';
 
 import { FormsModule }             from '@angular/forms';
@@ -14,7 +14,7 @@ import 'rxjs/add/observable/of';
 
 import { OrdersService } from '../orders.service';
 
-describe('OrderListComponent', () => {
+fdescribe('OrderListComponent:', () => {
   let component: OrderListComponent;
   let fixture: ComponentFixture<OrderListComponent>;
   let ordersService: OrdersService;
@@ -39,25 +39,40 @@ describe('OrderListComponent', () => {
     })
     .compileComponents();
   }));
-
   beforeEach(() => {
     fixture = TestBed.createComponent(OrderListComponent);
     component = fixture.componentInstance;
     ordersService = fixture.debugElement.injector.get(OrdersService);
+    component.listType = 'Ordered';
     de = fixture.debugElement.query(By.css('.listitem'));
     //el = de.nativeElement;
     fixture.detectChanges();
   });
-
-  it('should create orders list OnInit', () => {
+  beforeEach(async(()=>{
+    const getOrders_spy = spyOn(ordersService, 'getOrders').and.callFake((type)=>{
+      console.log("get orders spy");
+      return Observable.of(testOrders);
+    });
+    const loadOrders_spy = spyOn(component, 'loadOrders').and.callFake((type)=>{
+      component.title = `Showing `+component.listType+` Orders`;
+      ordersService.getOrders(component.listType)
+        .subscribe(res=> component.orders = res)/**/
+    })
+    const ngOnInit_spy = spyOn(component, 'ngOnInit').and.callFake(()=>{
+      component.loadOrders(component.listType);
+    })
+    fixture.detectChanges();
+  }))
+  it('should create `OrdersListComponent`', () => {
     expect(component).toBeTruthy();
+    fixture.detectChanges();
   });
-  it('it should not display orders data before OnInit',()=>{
-    expect(testOrders).toBeTruthy();
-  });
-  it('It shoud fetch orders data', ()=>{
-    let spy = spyOn(ordersService, 'getOrders')
-            .and.returnValue(Observable.of(testOrders));
+  it('should fetch orders of given type', fakeAsync(()=>{
+    component.ngOnInit();
+    expect(component.orders).toBeTruthy();
+  }));
+  it('It shoud fetch order`s data', ()=>{
+    
     fixture.detectChanges();
   });
 });

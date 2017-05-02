@@ -42,12 +42,6 @@ describe('AppComponent', () => {
     router.initialNavigation();
   }));
   
- it('navigate to "" redirects to /', fakeAsync(()=>{
-    router.navigate(['']);
-    tick();
-    expect(location.path()).toBe('/');
-  }));/* */
-
   it('should create the app', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
@@ -65,5 +59,11 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Ampath Meal Ordering App');
+  }));
+  
+  it("should redirect to / when user navigates to '' ", fakeAsync(()=>{
+    router.navigate(['']);
+    tick();
+    expect(location.path()).toBe('/');
   }));
 });

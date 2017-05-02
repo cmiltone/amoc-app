@@ -19,7 +19,7 @@ import { MealItemService }						from '../meal-item.service';
 })
 export class AddMealItemComponent implements OnInit {
 
-	title: string;
+	title: string = "2. Add Meal Items";
 	@Input() restaurant: string;
 	@Input() form: FormGroup;
 
@@ -28,14 +28,7 @@ export class AddMealItemComponent implements OnInit {
 		private mealItemsService: MealItemService
 	){}
 	ngOnInit(){
-		this.title = "2. Add Meal Items";
 		this.mealItemsService.getMeals(this.restaurant)
-				.subscribe(res=> {
-					const rest = this.restaurant;					 
-					this.meals = res.filter(function(meal: Meal){
-						return meal.restaurant == rest;
-					});
-					console.log(this.meals);
-				});
-		}
+				.subscribe(res=>this.meals = res);/**/
+	}
 }

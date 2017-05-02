@@ -29,7 +29,7 @@ import 'rxjs/add/operator/switchMap';
 })
 
 export class MealOrderingComponent implements OnInit{
-	title: string;
+	title = "Meal Ordering";
 	form: FormGroup;
 	order: Order;
 	payLoad: any;
@@ -44,13 +44,12 @@ export class MealOrderingComponent implements OnInit{
 		this.form = new FormGroup({
 			selectedMeals: new FormControl('', [Validators.required])
 		});
-
-		this.title = "Meal Ordering";
+		
 		this.restaurants = this.searchTerms
 			.debounceTime(300)
 			.distinctUntilChanged()
 			.switchMap(term => term 
-				?this.rs.search(term)
+				?this.rs.search_restaurant(term)
 				: Observable.of<Restaurant[]>([]))
 			.catch(error=>{
 				console.log(error);

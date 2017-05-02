@@ -1,5 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
-import { HttpModule }	   from '@angular/http';
+import { async, getTestBed, TestBed, inject } from '@angular/core/testing';
 
 import { 
  BaseRequestOptions,
@@ -12,22 +11,18 @@ import {
   MockBackend,
   MockConnection
 } from '@angular/http/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { Order } from './order';
 import { MockOrders } from './mocks';
 import { OrdersService } from './orders.service';
 
-describe('OrdersService', () => {
-
+describe('OrdersService: ', () => {
   let backend: MockBackend;
   let ordersService: OrdersService;
-  beforeEach(() => {
+  let type: string;
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-      	HttpModule
-      ],
-      providers: [
+       providers: [
         BaseRequestOptions,
         MockBackend,
         OrdersService,
@@ -37,51 +32,68 @@ describe('OrdersService', () => {
             BaseRequestOptions
           ],
           provide: Http,
-          useFactory: (backend: XHRBackend, defaultOptions: BaseRequestOptions)=>{
+          useFactory: (backend: MockBackend, defaultOptions: BaseRequestOptions)=>{
             return new Http(backend, defaultOptions);
           }
         }
        ]
     });
-  });
+    const testbed = getTestBed();
+    backend = testbed.get(MockBackend);
+    ordersService = testbed.get(OrdersService);
+  }));
+  
   function setupConnections(backend: MockBackend, options: any){
     backend.connections.subscribe((connection: MockConnection)=>{
-      if(connection.request.url==='../src/app/data/orders.json'){
+      if(connection.request.url==="../src/app/data/orders.json"){
         const responseOptions = new ResponseOptions(options);
         const response = new Response(responseOptions);
-
+        
         connection.mockRespond(response);
       }
     })
   }
-  it('should create', inject([OrdersService], (service: OrdersService) => {
+  it('should create Injectable `OrdersService` class', inject([OrdersService], (service: OrdersService) => {
     expect(service).toBeTruthy();
   }));
-  it('should get orders from server and return on succes', ()=>{
-    backend = TestBed.get(MockBackend);
-    ordersService = TestBed.get(OrdersService);
-    setupConnections(backend, {
-      body: MockOrders,
-      status: 200
+  describe('getOrders', ()=>{
+    it('should return Archived orders when passed in `Delivered`', ()=>{
+      setupConnections(backend, {
+        body: MockOrders,
+        status: 200
+      });
+      type = 'Delivered';
+      ordersService.getOrders(type)
+            .subscribe((MockOrders: Order[]) =>{
+              expect(MockOrders.length>1).toBe(true);
+              expect(MockOrders[0].status == 'Delivered').toBe(true);
+            })
     });
-    ordersService.getOrders()
-            .map((res) =>{ 
-              expect(res.length).toBe(1);
-            });
-  });
-  it('should log error on console on error', ()=>{
-    backend = TestBed.get(MockBackend);
-    ordersService = TestBed.get(OrdersService);
-    setupConnections(backend, {
-      body: {
-        error: "Error occurred!"
-      },
-      status: 500
+    it('should return Active orders when passed in `Ordered`', ()=>{
+      setupConnections(backend, {
+        body: MockOrders,
+        status: 200
+      });
+      type = 'Ordered';
+      ordersService.getOrders(type)
+            .subscribe((MockOrders: Order[]) =>{
+              expect(MockOrders.length>1).toBe(true);
+              expect(MockOrders[0].status == 'Delivered').toBe(true);
+            })
     });
-    spyOn(console, 'error');
-    ordersService.getOrders()
-      .subscribe(null, ()=>{
-      expect(console.error).toHaveBeenCalledWith('Error occurred!');
-    })
-  });
+    it('should log error on console on error', ()=>{
+      type = 'Ordered';
+      setupConnections(backend, {
+        body: {
+          error: "Error occurred!"
+        },
+        status: 500
+      });
+      spyOn(console, 'error');
+      ordersService.getOrders(type)
+        .subscribe(null, ()=>{
+        expect(console.error).toHaveBeenCalledWith('Error occurred!');
+      })
+    });
+  })
 });

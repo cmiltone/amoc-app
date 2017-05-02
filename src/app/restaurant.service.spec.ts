@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { async, fakeAsync, TestBed, inject } from '@angular/core/testing';
 
 import { HttpModule }	   from '@angular/http';
 
@@ -22,8 +22,8 @@ import { RestaurantService } from './restaurant.service';
 describe('RestaurantService', () => {
   let backend: MockBackend;
   let restaurantService: RestaurantService;
-  let restaurant: Restaurant = MockRestaurants[0];
-  beforeEach(() => {
+  let search_term: string;
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
       	HttpModule
@@ -44,7 +44,9 @@ describe('RestaurantService', () => {
         }
       ]
     });
-  });
+    backend = TestBed.get(MockBackend);
+    restaurantService = TestBed.get(RestaurantService);
+  }));
   afterEach(() => {
     TestBed.resetTestingModule();
   });
@@ -59,35 +61,33 @@ describe('RestaurantService', () => {
     })
   }
 
-  it('should provide restaurant data', inject([RestaurantService], (service: RestaurantService) => {
+  it('should create Injectable class `RestaurantService` for the service', inject([RestaurantService], (service: RestaurantService) => {
     expect(service).toBeTruthy();
   }));
 
-  it('should get restaurants from server and return on succes', ()=>{
-    backend = TestBed.get(MockBackend);
-    restaurantService = TestBed.get(RestaurantService);
+  it('should have method #search_restaurant that return restaurants whose names start with the input search term from storage on success', (fakeAsync(()=>{
+    search_term = 'Jadina';
     setupConnections(backend,{
       body: MockRestaurants,
       status: 200
     });
-    restaurantService.search(restaurant)
-            .subscribe((res: Restaurant[]) =>{ 
-              expect(res).toBe(undefined);
-            });
-  });
-  it('should log error on console on error', ()=>{
-    backend = TestBed.get(MockBackend);
-    restaurantService = TestBed.get(RestaurantService);
+    restaurantService.search_restaurant(search_term)
+      .subscribe(res =>{ 
+        expect(res.length>0).toBe(true);
+      });
+  })));
+  it('method #search_restaurant should log error on console on error', (fakeAsync(()=>{
+    search_term = '';
     setupConnections(backend, {
       body: {
         error: "Error occurred!"
       },
       status: 500
     });
-    spyOn(console, 'error');
-    restaurantService.search(restaurant)
+    restaurantService.search_restaurant(search_term)
       .subscribe(null, ()=>{
       expect(console.error).toHaveBeenCalledWith('Error occurred!');
     })
-  });
+    spyOn(console, 'error');
+  })));
 });
